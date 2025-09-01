@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TiltWrapper</title>
+    <!-- <script type="module" src="/dist/browser/tilt-wrapper.iife.js"></script> -->
+    <script type="module" src="/src/tilt-wrapper.ts"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #171717;
+        color: #fff;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      main {
+        width: 100%;
+        height: 100dvh;
+        place-content: center;
+        place-items: center;
+      }
+
+      #tilt_1 {
+        --tiltX: 0;
+        --tiltY: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <tilt-wrapper id="tilt_1">
+        <h1>Vite + Lit</h1>
+      </tilt-wrapper>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js" integrity="sha256-biEwHiabf/8V8hfBRUsPYUyTfVMIHpmOhVnCarC+OUQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      const variables = {
+        '--tiltX': 0,
+        '--tiltY': 0,
+        '--tiltFactorX': 0,
+        '--tiltFactorY': 0,
+      }
+      const gui = new dat.GUI();
+      gui.width = 360;
+      const prop = gui.addFolder('Properties');
+      prop.open();
+      prop.add(variables, '--tiltX', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltX', v));
+      prop.add(variables, '--tiltY', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltY', v));
+      prop.add(variables, '--tiltFactorX', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltFactorX', v));
+      prop.add(variables, '--tiltFactorY', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltFactorY', v));
+
+
+    </script>
+  </body>
+</html>
