@@ -45,8 +45,6 @@ export class TiltWrapper extends LitElement {
   * Tilts contents with DeviceOrientationEvent.
   */
   _tiltForOrientation = async (ev: DeviceOrientationEvent) => {
-    console.log('listening to device orientation');
-    
     let x = ev.beta ? ev.beta / 180 : 0;  // In degree in the range [-180,180]
     let y = ev.gamma ? ev.gamma / 90 : 0; // In degree in the range [-90,90]
     this.tilt(x, y, 1);
