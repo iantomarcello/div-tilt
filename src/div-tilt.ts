@@ -4,14 +4,20 @@ import { customElement, property } from 'lit/decorators.js'
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /**
- * An example element.
+ * An block element that tilts its children based on pointer or device movements.
  *
- * @slot - This element has a slot
- * @csspart button - The button
+ * @slot - This element has a slot.
+ * @cssprop [--tileX=0] controls the base tilt on the X axis.
+ * @cssprop [--tileY=0] controls the base tilt on the Y axis.
+ * @cssprop [--perspective=1000px]
+ * @cssprop [--tiltFactorY=45] the multiplier factor for the tilt on the X axis. Change to 0 if you want to disable tilting on that axis.
+ * @cssprop [--tiltFactorX=45] the multiplier factor for the tilt on the Y axis. Change to 0 if you want to disable tilting on that axis.
+ * @event {CustomEvent} tilt:tilting - Fired when the element is being tilted. Event detail contains the x and y tilt values.
+ * @event {Event} tilt:reset - Fired when the element is resetting its tilt.
+ * @event {Event} tilt:after_reset - Fired after the element has reset its tilt and re-enabled tilting.
  */
 @customElement('div-tilt')
 export class Tilt extends LitElement {
-  @property({ type: Boolean, reflect: true }) deviceOrientation = true;
   tiltTimeout !: ReturnType<typeof setTimeout>;
   resetTimeout !: ReturnType<typeof setTimeout>;
 
@@ -78,6 +84,8 @@ export class Tilt extends LitElement {
     this.style.setProperty('--_tileX', offsetX.toString());
     this.style.setProperty('--_tileY', offsetY.toString());
 
+    this.#dispatchEvent('tilt:tilting', { x: offsetX, y: offsetY });
+
     clearTimeout(this.tiltTimeout);
     this.tiltTimeout = setTimeout(() => this._resetTilt(), 3000);
   }
@@ -86,17 +94,28 @@ export class Tilt extends LitElement {
     return getComputedStyle(this).getPropertyValue(prop) || '';
   }
 
+  #dispatchEvent(name: string, detail?: any) {
+    this.dispatchEvent(new CustomEvent(name, {
+      bubbles: true,
+      cancelable: true,
+      detail,
+    }));
+  }
+
   private _resetTilt() {
     let duration = 2;
     window.removeEventListener('deviceorientation', this._tiltForOrientation);
     window.removeEventListener('mousemove', this._tiltForMouse);
 
     this.tilt(0, 0);
+    this.#dispatchEvent('tilt:reset');
+
     clearTimeout(this.resetTimeout);
 
     this.resetTimeout = setTimeout(() => {
       isTouchDevice && window.addEventListener('deviceorientation', this._tiltForOrientation)
       window.addEventListener('mousemove', this._tiltForMouse);
+      this.#dispatchEvent('tilt:after_reset');
     }, duration * 1000)
   }
 

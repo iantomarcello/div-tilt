@@ -54,6 +54,15 @@
       prop.add(variables, '--tiltFactorX', 0, 300, 5).onChange(v => tilt_1.style.setProperty('--tiltFactorX', v));
       prop.add(variables, '--tiltFactorY', 0, 300, 5).onChange(v => tilt_1.style.setProperty('--tiltFactorY', v));
 
+      tilt_1.addEventListener('tilt:tilting', (e) => {
+        console.log('tilt event', e.detail);
+      });
+      tilt_1.addEventListener('tilt:reset', (e) => {
+        console.log('reset event', e.detail);
+      });
+      tilt_1.addEventListener('tilt:after_reset', (e) => {
+        console.log('after_reset event', e.detail);
+      });
 
     </script>
   </body>
