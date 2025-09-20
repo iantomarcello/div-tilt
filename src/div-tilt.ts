@@ -36,8 +36,6 @@ export class Tilt extends LitElement {
 
       .tilt {
         position: relative;
-        padding: 1rem;
-        background-color: grey;
         /* NOTE: Updating --_tiltN is the only way to tilt programmatically, oddly adding another CSS custom property and updating that doesn't work. */
         transform: perspective(var(--perspective))
           rotateX(calc(var(--_tileX) * 1deg))
