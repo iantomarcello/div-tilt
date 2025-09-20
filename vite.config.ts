@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/div-tilt.ts',
-      formats: ['es', 'umd', 'iife'],
+      formats: ['es', 'umd'],
       name: "TiltWrapper",
       fileName: (format) => `div-tilt.${format}.js`
     },
