@@ -84,10 +84,11 @@ export class Tilt extends LitElement {
     this.style.setProperty('--_tileX', offsetX.toString());
     this.style.setProperty('--_tileY', offsetY.toString());
 
-    this.#dispatchEvent('tilt:tilting', { x: offsetX, y: offsetY });
-
-    clearTimeout(this.tiltTimeout);
-    this.tiltTimeout = setTimeout(() => this._resetTilt(), 3000);
+    if (x && y) {
+      this.#dispatchEvent('tilt:tilting', { x: offsetX, y: offsetY });
+      clearTimeout(this.tiltTimeout);
+      this.tiltTimeout = setTimeout(() => this._resetTilt(), 3000);
+    }
   }
 
   getPropertyValue(prop: string) {
