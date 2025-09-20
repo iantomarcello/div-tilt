@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/tilt-wrapper.ts',
+      entry: 'src/div-tilt.ts',
       formats: ['iife'],
       name: "TiltWrapper",
     },

@@ -4,10 +4,10 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/tilt-wrapper.ts',
+      entry: 'src/div-tilt.ts',
       formats: ['es', 'umd', 'iife'],
       name: "TiltWrapper",
-      fileName: (format) => `tilt-wrapper.${format}.js`
+      fileName: (format) => `div-tilt.${format}.js`
     },
     rollupOptions: {
       external: /^lit/,

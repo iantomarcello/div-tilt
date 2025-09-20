@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TiltWrapper</title>
-    <!-- <script type="module" src="/dist/browser/tilt-wrapper.iife.js"></script> -->
-    <script type="module" src="/src/tilt-wrapper.ts"></script>
+    <!-- <script type="module" src="/dist/browser/div-tilt.iife.js"></script> -->
+    <script type="module" src="/src/div-tilt.ts"></script>
     <style>
       body {
         font-family: sans-serif;
@@ -33,17 +33,17 @@
   </head>
   <body>
     <main>
-      <tilt-wrapper id="tilt_1">
+      <div-tilt id="tilt_1">
         <h1>Vite + Lit</h1>
-      </tilt-wrapper>
+      </div-tilt>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js" integrity="sha256-biEwHiabf/8V8hfBRUsPYUyTfVMIHpmOhVnCarC+OUQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
       const variables = {
         '--tiltX': 0,
         '--tiltY': 0,
-        '--tiltFactorX': 0,
-        '--tiltFactorY': 0,
+        '--tiltFactorX': 45,
+        '--tiltFactorY': 45,
       }
       const gui = new dat.GUI();
       gui.width = 360;
@@ -51,8 +51,8 @@
       prop.open();
       prop.add(variables, '--tiltX', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltX', v));
       prop.add(variables, '--tiltY', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltY', v));
-      prop.add(variables, '--tiltFactorX', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltFactorX', v));
-      prop.add(variables, '--tiltFactorY', -360, 360, 1).onChange(v => tilt_1.style.setProperty('--tiltFactorY', v));
+      prop.add(variables, '--tiltFactorX', 0, 100, 5).onChange(v => tilt_1.style.setProperty('--tiltFactorX', v));
+      prop.add(variables, '--tiltFactorY', 0, 100, 5).onChange(v => tilt_1.style.setProperty('--tiltFactorY', v));
 
 
     </script>

@@ -9,8 +9,8 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('tilt-wrapper')
-export class TiltWrapper extends LitElement {
+@customElement('div-tilt')
+export class Tilt extends LitElement {
   @property({ type: Boolean, reflect: true }) deviceOrientation = true;
   tiltTimeout !: ReturnType<typeof setTimeout>;
   resetTimeout !: ReturnType<typeof setTimeout>;
@@ -21,17 +21,18 @@ export class TiltWrapper extends LitElement {
         display: block;
         --tileX: 0;
         --tileY: 0;
-        --_tileX: 0;
-        --_tileY: 0;
         --perspective: 1000px;
         --tiltFactorY: 45;
         --tiltFactorX: 45;
+        --_tileX: 0; /* internal usage for calculations. */
+        --_tileY: 0; /* internal usage for calculations. */
       }
 
       .tilt {
         position: relative;
         padding: 1rem;
         background-color: grey;
+        /* NOTE: Updating --_tiltN is the only way to tilt programmatically, oddly adding another CSS custom property and updating that doesn't work. */
         transform: perspective(var(--perspective))
           rotateX(calc(var(--_tileX) * 1deg))
           rotateY(calc(var(--_tileY) * 1deg))
@@ -126,6 +127,6 @@ export class TiltWrapper extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'tilt-wrapper': TiltWrapper
+    'div-tilt': Tilt
   }
 }
