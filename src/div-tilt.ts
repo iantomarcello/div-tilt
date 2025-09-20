@@ -68,12 +68,12 @@ export class Tilt extends LitElement {
    * NOTE: Code forked from Content.rerotate()
    */
   tilt(x: number, y: number, factor = 1) {
-    let tiltX = parseFloat(this.getPropertyValue('--tiltX') || '0') * 0.01;
-    let tiltY = parseFloat(this.getPropertyValue('--tiltY') || '0') * 0.01;
+    let tiltX = parseFloat(this.getPropertyValue('--tiltX') || '0');
+    let tiltY = parseFloat(this.getPropertyValue('--tiltY') || '0');
     let tiltFactorY = parseFloat(this.getPropertyValue('--tiltFactorY') || '0');
     let tiltFactorX = parseFloat(this.getPropertyValue('--tiltFactorX') || '0');
-    let offsetX = (tiltX + x) * tiltFactorX * factor;
-    let offsetY = (tiltY + y) * tiltFactorY * factor;
+    let offsetX = tiltX + (x * tiltFactorX * factor);
+    let offsetY = tiltY + (y * tiltFactorY * factor);
 
     this.style.setProperty('--_tileX', offsetX.toString());
     this.style.setProperty('--_tileY', offsetY.toString());
