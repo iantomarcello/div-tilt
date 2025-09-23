@@ -59,8 +59,10 @@ export class Tilt extends LitElement {
    * Tilts contents with MouseMove.
    */
   _tiltForMouse = async (ev: MouseEvent) => {
-    let x = (ev.x - window.innerWidth / 2) / window.innerWidth;
-    let y = (window.innerHeight / 2 - ev.y) / window.innerHeight;
+    const posX = this.getBoundingClientRect().left + this.getBoundingClientRect().width / 2;
+    const posY = this.getBoundingClientRect().top + this.getBoundingClientRect().height / 2;
+    let x = (ev.x - posX) / window.innerWidth;
+    let y = (posY - ev.y) / window.innerHeight;
     this.tilt(y, x); /// Reverse as per rotation axeses.
   }
 
